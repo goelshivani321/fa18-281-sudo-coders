@@ -35,3 +35,10 @@
     * Integration of modules
 4. Action Items
     * Come up with a Design MockUp : Abstract, UseCase/Personas, Architecture
+
+## Meeting 4 November 18, 2018 9:00 AM
+Final Modules and architecture decided:
+* Users DB - User profile
+* Card DB - Details of all the cards: user id , card id, Balance
+* Transaction DB - Transaction History
+* Miscellanious - Location, Support

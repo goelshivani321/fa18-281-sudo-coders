@@ -10,3 +10,6 @@
 
 ## Daily Meeting Updates
 [Minutes Of The Meeting](https://github.com/nguyensjsu/fa18-281-sudo-coders/blob/master/MinutesOfTheMeeting.md)
+
+## Team Kanban Board
+[Kanban Board](https://github.com/nguyensjsu/fa18-281-sudo-coders/projects/1)
