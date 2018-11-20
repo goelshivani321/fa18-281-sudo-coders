@@ -42,3 +42,14 @@ Final Modules and architecture decided:
 * Card DB - Details of all the cards: user id , card id, Balance
 * Transaction DB - Transaction History
 * Miscellanious - Location, Support
+
+## Meeting 5 November 20, 2018
+<b>Micro-service allocation: </b>
+* Vaishali : User Module
+* Sanjay : Payment Module
+* Nachiket : Card Module
+* Shivani : Ride Tracking Module
+
+Language API : golang
+
+Action Items: Build a data service for respective micro-services (2 hours)
