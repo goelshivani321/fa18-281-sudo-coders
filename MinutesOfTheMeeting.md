@@ -53,3 +53,19 @@ Final Modules and architecture decided:
 Language API : golang
 
 Action Items: Build a data service for respective micro-services (2 hours)
+
+
+## Meeting 6 November 22, 2018
+* <b>What did team complete in past sprint?</b>
+  * Nachiket : completed mock schema
+  * Sanjay : completed mock schema
+  * Vaishali : completed mock schema
+  * Shivani : completed mock schema and architecture diagram
+
+* <b>What will the team do in next sprint?</b>
+  * work on building go api modules
+
+* <b>Any roadblocks faced by team?</b>
+  * No roadblocks faced
+
+* Next meeting date decided : November 24, 2018 10:00 AM

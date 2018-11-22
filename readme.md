@@ -8,6 +8,7 @@
 3. Shivani
 4. Vaishali
 
+
 ## Daily Meeting Updates
 [Minutes Of The Meeting](https://github.com/nguyensjsu/fa18-281-sudo-coders/blob/master/MinutesOfTheMeeting.md)
 
