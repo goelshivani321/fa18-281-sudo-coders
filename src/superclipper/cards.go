@@ -80,6 +80,46 @@ func update(formatter *render.Render) http.HandlerFunc {
 }
 
 
+
+func createcard(formatter *render.Render) http.HandlerFunc {
+	return func(w http.ResponseWriter, req *http.Request) {
+
+
+		fmt.Println("inside create func")
+		params := mux.Vars(req)
+		//var uuid string = params["name"]
+		var tid string = params["ids"]
+		ids,err := strconv.Atoi(tid)
+
+		if err != nil {
+        // handle error
+        }
+        ids=ids+1
+
+		var name string = params["name"]
+		var surname string = params["surname"]
+		var email string = params["email"]
+		
+		session, err := mgo.Dial(mongodb_server)
+        if err != nil {
+                panic(err)
+        }
+        defer session.Close()
+        session.SetMode(mgo.Monotonic, true)
+        c := session.DB(mongodb_database).C(mongodb_collection)
+
+        err = c.Insert(&Cards{Name: name, Surname: surname, Email:email})
+
+		if err != nil {
+			panic(err)
+		}
+
+	}
+}
+
+
+
+
 func readbyname(formatter *render.Render) http.HandlerFunc {
 	return func(w http.ResponseWriter, req *http.Request) {
 		fmt.Println("inside read")

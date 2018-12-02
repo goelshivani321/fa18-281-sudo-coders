@@ -2,7 +2,7 @@
 	
 package main
 
-type cards struct {
+type Cards struct {
 	Id             	int 	
 	Name            string    	
 	Surname      	string	    
