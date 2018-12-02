@@ -77,13 +77,13 @@ func updatePaymentHandler(formatter *render.Render) http.HandlerFunc {
 func newPaymentHandler(formatter *render.Render) http.HandlerFunc {
 	return func(w http.ResponseWriter, req *http.Request) {
 
-		var paymentTranReq Paymenttran
+		var paymentTranReq PaymentTran
 		_ = json.NewDecoder(req.Body).Decode(&paymentTranReq)	
 
 		fmt.Println("Create PaymentTran To: ", paymentTranReq)
 
 		uuid, _ := uuid.NewV4()
-    	var paymentTranPer = Paymenttran {
+    	var paymentTranPer = PaymentTran {
 					Id: uuid.String(),            		
 					CardId: paymentTranReq.CardId,
 					Payment: paymentTranReq.Payment,

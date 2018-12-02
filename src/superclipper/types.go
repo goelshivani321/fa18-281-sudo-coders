@@ -6,6 +6,12 @@ type Payments struct {
 	// Payments	[]Payment
 }
 
+type PaymentTran struct {
+	Id 		string 	
+	CardId 	string
+	Payment string
+}
+
 // type Address struct {
 // 	FirstName  string
 // 	LastName   string
