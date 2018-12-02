@@ -6,9 +6,8 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/codegangsta/negroni"
-	"github.com/gorilla/mux"
 	"github.com/unrolled/render"
+	"gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
 )
 
@@ -17,32 +16,6 @@ var mongodb_server = "mongodb"
 var mongodb_database = "superclipper"
 var mongodb_collection = "payment"
 
-// NewServer configures and returns a Server.
-func NewServer() *negroni.Negroni {
-	formatter := render.New(render.Options{
-		IndentJSON: true,
-	})
-	n := negroni.Classic()
-	mx := mux.NewRouter()
-	initRoutes(mx, formatter)
-	n.UseHandler(mx)
-	return n
-}
-
-// API Routes
-func initRoutes(mx *mux.Router, formatter *render.Render) {
-	mx.HandleFunc("/ping", pingHandler(formatter)).Methods("GET")
-	mx.HandleFunc("/payment", gumballHandler(formatter)).Methods("GET")
-	mx.HandleFunc("/payment", gumballUpdateHandler(formatter)).Methods("PUT")
-}
-
-// Helper Functions
-func failOnError(err error, msg string) {
-	if err != nil {
-		log.Fatalf("%s: %s", msg, err)
-		panic(fmt.Sprintf("%s: %s", msg, err))
-	}
-}
 
 // API Ping Handler
 func pingHandler(formatter *render.Render) http.HandlerFunc {
@@ -51,8 +24,8 @@ func pingHandler(formatter *render.Render) http.HandlerFunc {
 	}
 }
 
-// API Gumball Machine Handler
-func gumballHandler(formatter *render.Render) http.HandlerFunc {
+
+func paymentHandler(formatter *render.Render) http.HandlerFunc {
 	return func(w http.ResponseWriter, req *http.Request) {
 		session, err := mgo.Dial(mongodb_server)
 		if err != nil {
@@ -71,8 +44,8 @@ func gumballHandler(formatter *render.Render) http.HandlerFunc {
 	}
 }
 
-// API Update Gumball Inventory
-func gumballUpdateHandler(formatter *render.Render) http.HandlerFunc {
+
+func updatePaymentHandler(formatter *render.Render) http.HandlerFunc {
 	return func(w http.ResponseWriter, req *http.Request) {
 		var payments Payments
 		_ = json.NewDecoder(req.Body).Decode(&payments)
@@ -97,5 +70,44 @@ func gumballUpdateHandler(formatter *render.Render) http.HandlerFunc {
 		}
 		fmt.Println("Payments:", result)
 		formatter.JSON(w, http.StatusOK, result)
+	}
+}
+
+
+func newPaymentHandler(formatter *render.Render) http.HandlerFunc {
+	return func(w http.ResponseWriter, req *http.Request) {
+
+		var paymentTranReq Paymenttran
+		_ = json.NewDecoder(req.Body).Decode(&paymentTranReq)	
+
+		fmt.Println("Create PaymentTran To: ", paymentTranReq)
+
+		uuid, _ := uuid.NewV4()
+    	var paymentTranPer = Paymenttran {
+					Id: uuid.String(),            		
+					CardId: paymentTranReq.CardId,
+					Payment: paymentTranReq.Payment,
+		}
+
+		fmt.Println( "paymentTran1: ", paymentTranPer )
+		formatter.JSON(w, http.StatusOK, paymentTranPer)
+
+
+		session, err := mgo.Dial(mongodb_server)
+        if err != nil {
+                panic(err)
+        }
+        defer session.Close()
+        session.SetMode(mgo.Monotonic, true)
+        c := session.DB(mongodb_database).C("paymentTransaction")
+
+        err = c.Insert(&paymentTranPer)
+
+        if err != nil {
+                panic(err)
+        }
+
+        //TODO: RabbitMQ
+
 	}
 }

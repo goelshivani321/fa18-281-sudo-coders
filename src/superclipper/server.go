@@ -23,7 +23,10 @@ func NewServer() *negroni.Negroni {
 
 // API Routes
 func initRoutes(mx *mux.Router, formatter *render.Render) {
+	mx.HandleFunc("/ping", pingHandler(formatter)).Methods("GET")
 	mx.HandleFunc("/payment", getpayments(formatter)).Methods("GET")
+	mx.HandleFunc("/payment", updatePaymentHandler(formatter)).Methods("PUT")
+	mx.HandleFunc("/payment", newPaymentHandler(formatter)).Methods("POST")
 }
 
 // Helper Functions
