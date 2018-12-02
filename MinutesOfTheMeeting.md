@@ -69,3 +69,19 @@ Action Items: Build a data service for respective micro-services (2 hours)
   * No roadblocks faced
 
 * Next meeting date decided : November 24, 2018 10:00 AM
+
+## Meeting 7 December 1, 2018
+* <b>What did team complete in past sprint?</b>
+    * Nachiket : completed GoAPI
+    * Sanjay : working on transaction GoAPI
+    * Vaishali : working on User GoAPI
+    * Shivani : completed Ride GoAPI
+
+* <b>What will the team do in next sprint?</b>
+    * Vaishali will complete goAPI and look into Sharding
+    * Sanjay will complete GoAPI
+    * Nachiket will complete GoAPI
+    * Shivani will work on express app
+
+* <b>Any roadblocks faced by team?</b>
+    * No roadblocks faced
