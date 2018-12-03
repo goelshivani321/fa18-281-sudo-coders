@@ -51,10 +51,11 @@ func read(formatter *render.Render) http.HandlerFunc {
 func update(formatter *render.Render) http.HandlerFunc {
 	return func(w http.ResponseWriter, req *http.Request) {
 
-		fmt.Println("inside read")
+		fmt.Println("inside update")
 		params := mux.Vars(req)
 		//var uuid string = params["name"]
-		var email string = params["email"]
+		var cardid string = params["cardid"]
+		var bal string = params["bal"]
 
 		session, err := mgo.Dial(mongodb_server)
         if err != nil {
@@ -63,14 +64,14 @@ func update(formatter *render.Render) http.HandlerFunc {
         defer session.Close()
         session.SetMode(mgo.Monotonic, true)
         c := session.DB(mongodb_database).C(mongodb_collection)
-        query := bson.M{"Name" : "nachiket"}
-        change := bson.M{"$set": bson.M{ "email" : email}}
+        query := bson.M{"id" : cardid}
+        change := bson.M{"$set": bson.M{ "bal" : bal}}
         err = c.Update(query, change)
         if err != nil {
                 log.Fatal(err)
         }
        	var result bson.M
-        err = c.Find(bson.M{"Name" : "nachiket"}).One(&result)
+        err = c.Find(bson.M{"id" : cardid}).One(&result)
         if err != nil {
                 log.Fatal(err)
         }        
@@ -89,16 +90,14 @@ func createcard(formatter *render.Render) http.HandlerFunc {
 		params := mux.Vars(req)
 		//var uuid string = params["name"]
 		var tid string = params["ids"]
-		ids,err := strconv.Atoi(tid)
+		//ids,err := strconv.Atoi(tid)
 
-		if err != nil {
-        // handle error
-        }
-        ids=ids+1
 
-		var name string = params["name"]
-		var surname string = params["surname"]
-		var email string = params["email"]
+        
+
+		var mybalance string = params["mybal"]
+		var myexp string = params["myexp"]
+		//var email string = params["email"]
 		
 		session, err := mgo.Dial(mongodb_server)
         if err != nil {
@@ -108,7 +107,7 @@ func createcard(formatter *render.Render) http.HandlerFunc {
         session.SetMode(mgo.Monotonic, true)
         c := session.DB(mongodb_database).C(mongodb_collection)
 
-        err = c.Insert(&Cards{Name: name, Surname: surname, Email:email})
+        err = c.Insert(&Cards{Id: tid, Bal: mybalance, Expiry:myexp})
 
 		if err != nil {
 			panic(err)
@@ -120,12 +119,12 @@ func createcard(formatter *render.Render) http.HandlerFunc {
 
 
 
-func readbyname(formatter *render.Render) http.HandlerFunc {
+func readbyid(formatter *render.Render) http.HandlerFunc {
 	return func(w http.ResponseWriter, req *http.Request) {
 		fmt.Println("inside read")
 		params := mux.Vars(req)
 		//var uuid string = params["name"]
-		var name string = params["name"]
+		var sid string = params["cardid"]
 
 
 		session, err := mgo.Dial(mongodb_server)
@@ -136,7 +135,7 @@ func readbyname(formatter *render.Render) http.HandlerFunc {
         session.SetMode(mgo.Monotonic, true)
         c := session.DB(mongodb_database).C(mongodb_collection)
         var result bson.M
-        err = c.Find(bson.M{"Name" : name}).One(&result)
+        err = c.Find(bson.M{"id" : sid}).One(&result)
         if err != nil {
                 log.Fatal(err)
         }
@@ -144,6 +143,39 @@ func readbyname(formatter *render.Render) http.HandlerFunc {
 		formatter.JSON(w, http.StatusOK, result)
 
 
+
 	}
 }
+
+
+
+
+
+func delbyid(formatter *render.Render) http.HandlerFunc {
+	return func(w http.ResponseWriter, req *http.Request) {
+		fmt.Println("inside del")
+		params := mux.Vars(req)
+		//var uuid string = params["name"]
+		var sid string = params["cardid"]
+
+
+		session, err := mgo.Dial(mongodb_server)
+        if err != nil {
+                panic(err)
+        }
+        defer session.Close()
+        session.SetMode(mgo.Monotonic, true)
+        c := session.DB(mongodb_database).C(mongodb_collection)
+        var result bson.M
+        err = c.Remove(bson.M{"id" : sid})
+        if err != nil {
+                log.Fatal(err)
+        }
+        
+		formatter.JSON(w, http.StatusOK, result)
+
+
+	}
+}
+
 

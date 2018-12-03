@@ -26,7 +26,8 @@ func initRoutes(mx *mux.Router, formatter *render.Render) {
 	mx.HandleFunc("/read", read(formatter)).Methods("GET")
 	mx.HandleFunc("/update/{email}", update(formatter)).Methods("PUT")
 	mx.HandleFunc("/create/{name}/{surname}/{email}", createcard(formatter)).Methods("POST")
-	mx.HandleFunc("/read/{name}", readbyname(formatter)).Methods("GET")
+	mx.HandleFunc("/read/{name}", readbyid(formatter)).Methods("GET")
+	mx.HandleFunc("/delete/{cardid}", delbyid(formatter)).Methods("DEL")
 
 
 }
