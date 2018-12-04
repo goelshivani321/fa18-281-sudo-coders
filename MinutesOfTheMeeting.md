@@ -99,8 +99,8 @@ Action Items: Build a data service for respective micro-services (2 hours)
     * Vaishali - upload goAPI and work on sharding
     * Sanjay - make payment go API up and running and study cloudwatch
     * Nachiket - prepare UI screen
-    * Shivani - work on route handler for rides API 
+    * Shivani - work on route handler for rides API
 
 * <b>Any roadblocks faced by team?</b>
     * Sanjay : code is giving errors, team reviewed the code and suggested amends
-    * Vaishali : trouble with github upload, Nachiket will help with it.
+    * Vaishali : trouble with github upload, Shivani helped with it.
