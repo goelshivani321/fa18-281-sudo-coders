@@ -55,7 +55,7 @@ func update(formatter *render.Render) http.HandlerFunc {
 		params := mux.Vars(req)
 		//var uuid string = params["name"]
 		var cardid string = params["cardid"]
-		var bal string = params["bal"]
+		var topupbal string = params["bal"]
 
 		session, err := mgo.Dial(mongodb_server)
         if err != nil {
@@ -64,19 +64,37 @@ func update(formatter *render.Render) http.HandlerFunc {
         defer session.Close()
         session.SetMode(mgo.Monotonic, true)
         c := session.DB(mongodb_database).C(mongodb_collection)
+        var result bson.M
+        err = c.Find(bson.M{"id" : cardid}).One(&result)
+        if err != nil {
+                log.Fatal(err)
+        }
+        fmt.Println("Data from bal is :", result["bal"] )
+        stringoldbal := result["bal"].(string)
+        ioldbal, err := strconv.Atoi(stringoldbal)
+    	if err != nil {
+         //handle error
+
+    	}
+    	inttopup := 0
+    	inttopup,err = strconv.Atoi(topupbal)
+    	newbal := 0
+    	newbal = inttopup+ioldbal
+    	stringnewbal := strconv.Itoa(newbal)
         query := bson.M{"id" : cardid}
-        change := bson.M{"$set": bson.M{ "bal" : bal}}
+       
+        change := bson.M{"$set": bson.M{ "bal" : stringnewbal}}
         err = c.Update(query, change)
         if err != nil {
                 log.Fatal(err)
         }
-       	var result bson.M
-        err = c.Find(bson.M{"id" : cardid}).One(&result)
+       	var newresult bson.M
+        err = c.Find(bson.M{"id" : cardid}).One(&newresult)
         if err != nil {
                 log.Fatal(err)
         }        
-        fmt.Println("my result", result )
-		formatter.JSON(w, http.StatusOK, result)
+        fmt.Println("my new result", newresult )
+		formatter.JSON(w, http.StatusOK, newresult)
 	}
 }
 
