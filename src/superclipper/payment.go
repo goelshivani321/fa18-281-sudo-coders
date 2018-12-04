@@ -3,7 +3,7 @@ package main
 import (
 	// "fmt"
 	"net/http"
-	// "encoding/json"
+	"encoding/json"
 	"github.com/gorilla/mux"
 	"github.com/unrolled/render"
 	"gopkg.in/mgo.v2"
@@ -138,5 +138,90 @@ func updatePaymentByCardIdPaymentId(formatter *render.Render) http.HandlerFunc {
 		formatter.JSON(writer, http.StatusOK, cardPayment)
 
 		//TODO: Hit Cards API '/update/{cardid}/{bal}' of type PUT to update Available Balance in Cards database
+	}
+}
+
+func createPaymentByCardId(formatter *render.Render) http.HandlerFunc {
+	return func(writer http.ResponseWriter, request *http.Request) {
+		//Retrieve cardId sent as parameter
+		params := mux.Vars(request)
+		var cardId string = params["cardId"]
+
+		//Create an payment request object
+		var paymentRequest = Payment{}
+		_ = json.NewDecoder(request.Body).Decode(&paymentRequest)
+
+		//Start MongoDB session
+		session, error := mgo.Dial(mongodb_server)
+		if error != nil {
+			panic(error)
+		}
+		defer session.Close()
+		session.SetMode(mgo.Monotonic, true)
+		collection := session.DB(mongodb_database).C(mongodb_collection)
+
+		//Find document in MongoDB collection with matching CardId
+        var cardPayment = CardPayment{}
+		error = collection.Find(bson.M{"cardid" : cardId}).One(&cardPayment)
+		if error != nil {
+			formatter.JSON(writer, http.StatusNotFound, "")
+			return
+		}
+
+		//Add the request Payment object to cardPayment
+		paymentRequest.PaymentId = PaymentIdGenerator(cardPayment.Payments)
+		cardPayment.Payments = append(cardPayment.Payments, paymentRequest)
+
+		//Update the whole cardPayment document on MongoDB
+		error = collection.Update(bson.M{"cardid" : cardId}, cardPayment)
+		if error != nil {
+			formatter.JSON(writer, http.StatusNotFound, "")
+			return
+		}
+		formatter.JSON(writer, http.StatusOK, cardPayment)
+	}
+}
+
+func deletePaymentByCardIdPaymentId(formatter *render.Render) http.HandlerFunc {
+	return func(writer http.ResponseWriter, request *http.Request) {
+		//Retrieve cardId and paymentId sent as parameter
+		params := mux.Vars(request)
+		var cardId string = params["cardId"]
+		var paymentId string = params["paymentId"]
+
+		//Start MongoDB session
+		session, error := mgo.Dial(mongodb_server)
+		if error != nil {
+			panic(error)
+		}
+		defer session.Close()
+		session.SetMode(mgo.Monotonic, true)
+		collection := session.DB(mongodb_database).C(mongodb_collection)
+
+		//Find document in MongoDB collection with matching CardId
+        var cardPayment = CardPayment{}
+		error = collection.Find(bson.M{"cardid" : cardId}).One(&cardPayment)
+		if error != nil {
+			formatter.JSON(writer, http.StatusNotFound, "")
+			return
+		}
+
+		//Loop through Payments and find the payment to be deleted
+		payments := []Payment{}
+		for _, payment := range cardPayment.Payments {
+			if payment.PaymentId != paymentId {
+				payment.PaymentId = PaymentIdGenerator(payments)
+				payments = append(payments,payment)
+			}
+		}
+		cardPayment.SetPayments(payments)
+
+		//Update the whole cardPayment document on MongoDB
+		error = collection.Update(bson.M{"cardid" : cardId}, cardPayment)
+		if error != nil {
+			formatter.JSON(writer, http.StatusNotFound, "")
+			return
+		}
+		formatter.JSON(writer, http.StatusOK, cardPayment)
 	}
 }
