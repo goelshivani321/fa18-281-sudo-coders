@@ -18,7 +18,7 @@ func NewServer() *negroni.Negroni {
 	return newServer
 }
 
-// API Routes
+
 func initRoutes(mx *mux.Router, formatter *render.Render) {
 	mx.HandleFunc("/", pingHandler(formatter)).Methods("GET")
 	mx.HandleFunc("/ping", pingHandler(formatter)).Methods("GET")
@@ -27,6 +27,13 @@ func initRoutes(mx *mux.Router, formatter *render.Render) {
 	mx.HandleFunc("/payments/cardId/{cardId}/paymentId/{paymentId}", updatePaymentByCardIdPaymentId(formatter)).Methods("PUT")
 	mx.HandleFunc("/payments/cardId/{cardId}/payment", createPaymentByCardId(formatter)).Methods("POST")
 	mx.HandleFunc("/payments/cardId/{cardId}/payment/{paymentId}", deletePaymentByCardIdPaymentId(formatter)).Methods("DELETE")
+	mx.HandleFunc("/read", read(formatter)).Methods("GET")
+	mx.HandleFunc("/update/{id}/{bal}", update(formatter)).Methods("PUT")
+	mx.HandleFunc("/create/{id}/{bal}/{exp}", createcard(formatter)).Methods("POST")
+	mx.HandleFunc("/read/{id}", readbyid(formatter)).Methods("GET")
+	mx.HandleFunc("/delete/{cardid}", delbyid(formatter)).Methods("DEL")
+
+
 }
 
 // // Helper Functions

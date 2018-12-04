@@ -14,3 +14,17 @@
 
 ## Team Kanban Board
 [Kanban Board](https://github.com/nguyensjsu/fa18-281-sudo-coders/projects/1)
+
+
+## Technology Stack
+
+
+| Task         | Technology Used | 
+|------------------|---------------|
+| Containorization | Docker        | 
+|        Backend          |    Golang           |
+|           Middleware       |          Express Node App     | 
+| Frontend | Handlebars, Bootstrap|
+|Micro-service API Platform|Kong|
+|Database| MongoDB Cluster|
+|Cloud| Amazon EC2|

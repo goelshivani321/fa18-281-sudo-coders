@@ -85,3 +85,22 @@ Action Items: Build a data service for respective micro-services (2 hours)
 
 * <b>Any roadblocks faced by team?</b>
     * No roadblocks faced
+
+## Meeting 8 December 2, 2018
+* <b>What did team complete in past sprint?</b>
+    * Nachiket : Added code to cards branch, goAPI talks to mongo DB
+    * Sanjay : completed CRUD operation, code needs to be refined though, needs
+                more functionality
+    * Vaishali : Completed goAPI looked into sharding
+    * Shivani : completed node express app infrastructure
+    * Team worked of UI flows
+
+* <b>What will the team do in next sprint?</b>
+    * Vaishali - upload goAPI and work on sharding
+    * Sanjay - make payment go API up and running and study cloudwatch
+    * Nachiket - prepare UI screen
+    * Shivani - work on route handler for rides API 
+
+* <b>Any roadblocks faced by team?</b>
+    * Sanjay : code is giving errors, team reviewed the code and suggested amends
+    * Vaishali : trouble with github upload, Nachiket will help with it.
