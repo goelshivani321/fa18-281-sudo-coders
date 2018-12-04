@@ -11,11 +11,11 @@ func NewServer() *negroni.Negroni {
 	formatter := render.New(render.Options{
 		IndentJSON: true,
 	})
-	n := negroni.Classic()
+	newServer := negroni.Classic()
 	mx := mux.NewRouter()
 	initRoutes(mx, formatter)
-	n.UseHandler(mx)
-	return n
+	newServer.UseHandler(mx)
+	return newServer
 }
 
 // API Routes
@@ -23,7 +23,7 @@ func initRoutes(mx *mux.Router, formatter *render.Render) {
 	mx.HandleFunc("/", pingHandler(formatter)).Methods("GET")
 	mx.HandleFunc("/ping", pingHandler(formatter)).Methods("GET")
 	mx.HandleFunc("/payments/cardId/{cardId}", getPaymentByCardId(formatter)).Methods("GET")
-	// mx.HandleFunc("/payments/cardId/{cardId}/paymentId/{paymentId}", getPaymentByCardIdPaymentId(formatter)).Methods("GET")
+	mx.HandleFunc("/payments/cardId/{cardId}/paymentId/{paymentId}", getPaymentByCardIdPaymentId(formatter)).Methods("GET")
 	// mx.HandleFunc("/payments/cardId/{cardId}/paymentId/{paymentId}", updatePaymentByCardIdPaymentId(formatter)).Methods("PUT")
 	// mx.HandleFunc("/payments/cardId/{cardId}/payment", createPaymentByCardId(formatter)).Methods("POST")
 	// mx.HandleFunc("/payments/cardId/{cardId}/payment/{paymentId}", deletePaymentByCardIdPaymentId(formatter)).Methods("DELETE")
