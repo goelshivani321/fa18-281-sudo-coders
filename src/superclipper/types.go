@@ -1,42 +1,34 @@
 package main
 
-type Payments struct {
-	CardId  string
-	Payment string
-	// Payments	[]Payment
+import (
+	"strconv"
+)
+
+type CardPayment struct {
+	CardId  	string `json: "id" bson: "_id,omitempty"`
+	Payments 	[]Payment `json: "payments" bson: "payments"`
 }
 
-type PaymentTran struct {
-	Id 		string 	
-	CardId 	string
-	Payment string
+type Payment struct {
+	PaymentId 				string `json: "paymentid" bson: "paymentid"`
+	CurrencyCode			string `json: "currencycode" bson: "currencycode"`
+	AccountNumber			string `json: "accountnumber" bson: "accountnumber"`
+	AccountDisplayNumber	string `json: "accountdisplaynumber" bson: "accountdisplaynumber"`
+	NameOnCard				string `json: "nameoncard" bson: "nameoncard"`
+	CardExpiryMonth			int `json: "cardexpirymonth" bson: "cardexpirymonth"`
+	CardExpiryYear			int `json: "cardexpiryyear" bson: "cardexpiryyear"`
+	Amount	 				float64 `json: "amount" bson: "amount"`
+	PaymentType				string `json: "paymenttype" bson: "paymenttype"`
+	CardTypeId				string `json: "cardtypeid" bson: "cardtypeid"`
 }
 
-// type Address struct {
-// 	FirstName  string
-// 	LastName   string
-// 	Address1   string
-// 	Address2   string
-// 	Address3   string
-// 	City       string
-// 	State      string
-// 	PostalCode string
-// 	County     string
-// 	Country    string
-// 	Phone      string
-// 	Email      string
-// }
 
-// type Payment struct {
-// 	CurrencyCode         string
-// 	AccountNumber        string
-// 	AccountDisplayNumber string
-// 	NameOnCard           string
-// 	CardExpiryMonth      int
-// 	CardExpiryYear       int
-// 	Amount               float
-// 	ChargeSequence       int
-// 	BillingAddress       Address
-// 	PaymentType          string
-// 	CardTypeId           string
-// }
+// SetPayment receives a pointer to CardPayment so it can modify it
+func (cardPayment *CardPayment) SetPayments(payments []Payment) {
+    cardPayment.Payments = payments
+}
+
+// PaymentIdGenerator generates the next PaymentMethodId
+func PaymentIdGenerator(payments []Payment) string {
+	return strconv.Itoa(len(payments) + 1)
+}

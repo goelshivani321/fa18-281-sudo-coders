@@ -1,9 +1,6 @@
 package main
 
 import (
-	"fmt"
-	"log"
-
 	"github.com/codegangsta/negroni"
 	"github.com/gorilla/mux"
 	"github.com/unrolled/render"
@@ -23,16 +20,19 @@ func NewServer() *negroni.Negroni {
 
 // API Routes
 func initRoutes(mx *mux.Router, formatter *render.Render) {
+	mx.HandleFunc("/", pingHandler(formatter)).Methods("GET")
 	mx.HandleFunc("/ping", pingHandler(formatter)).Methods("GET")
-	mx.HandleFunc("/payment", getpayments(formatter)).Methods("GET")
-	mx.HandleFunc("/payment", updatePaymentHandler(formatter)).Methods("PUT")
-	mx.HandleFunc("/payment", newPaymentHandler(formatter)).Methods("POST")
+	mx.HandleFunc("/payments/cardId/{cardId}", getPaymentByCardId(formatter)).Methods("GET")
+	// mx.HandleFunc("/payments/cardId/{cardId}/paymentId/{paymentId}", getPaymentByCardIdPaymentId(formatter)).Methods("GET")
+	// mx.HandleFunc("/payments/cardId/{cardId}/paymentId/{paymentId}", updatePaymentByCardIdPaymentId(formatter)).Methods("PUT")
+	// mx.HandleFunc("/payments/cardId/{cardId}/payment", createPaymentByCardId(formatter)).Methods("POST")
+	// mx.HandleFunc("/payments/cardId/{cardId}/payment/{paymentId}", deletePaymentByCardIdPaymentId(formatter)).Methods("DELETE")
 }
 
-// Helper Functions
-func failOnError(err error, msg string) {
-	if err != nil {
-		log.Fatalf("%s: %s", msg, err)
-		panic(fmt.Sprintf("%s: %s", msg, err))
-	}
-}
+// // Helper Functions
+// func failOnError(err error, msg string) {
+// 	if err != nil {
+// 		log.Fatalf("%s: %s", msg, err)
+// 		panic(fmt.Sprintf("%s: %s", msg, err))
+// 	}
+// }
