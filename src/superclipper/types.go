@@ -1,8 +1,8 @@
 package main
 
-// import (
-// 	"strconv"
-// )
+import (
+	"strconv"
+)
 
 type CardPayment struct {
 	CardId  	string `json: "id" bson: "_id,omitempty"`
@@ -28,7 +28,7 @@ func (cardPayment *CardPayment) SetPayments(payments []Payment) {
     cardPayment.Payments = payments
 }
 
-// // PaymentIdGenerator generates the next PaymentMethodId
-// func PaymentIdGenerator(payments []Payment) string {
-// 	return strconv.Itoa(len(payments) + 1)
-// }
+// PaymentIdGenerator generates the next PaymentMethodId
+func PaymentIdGenerator(payments []Payment) string {
+	return strconv.Itoa(len(payments) + 1)
+}
