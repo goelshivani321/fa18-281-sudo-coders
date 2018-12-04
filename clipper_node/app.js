@@ -7,6 +7,7 @@ var logger = require('morgan');
 var indexRouter = require('./routes/index');
 var ridesRouter = require('./routes/rides');
 var usersRouter = require('./routes/users');
+var cardRouter = require('./routes/cards');
 
 var app = express();
 
@@ -44,3 +45,11 @@ app.use(function(err, req, res, next) {
 });
 
 module.exports = app;
+
+
+
+
+
+
+
+
