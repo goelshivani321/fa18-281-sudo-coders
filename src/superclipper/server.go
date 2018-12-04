@@ -20,9 +20,16 @@ func NewServer() *negroni.Negroni {
 	return n
 }
 
-// API Routes
+
 func initRoutes(mx *mux.Router, formatter *render.Render) {
-	mx.HandleFunc("/payment", getpayments(formatter)).Methods("GET")
+	mx.HandleFunc("/ping", ping(formatter)).Methods("GET")
+	mx.HandleFunc("/read", read(formatter)).Methods("GET")
+	mx.HandleFunc("/update/{id}/{bal}", update(formatter)).Methods("PUT")
+	mx.HandleFunc("/create/{id}/{bal}/{exp}", createcard(formatter)).Methods("POST")
+	mx.HandleFunc("/read/{id}", readbyid(formatter)).Methods("GET")
+	mx.HandleFunc("/delete/{cardid}", delbyid(formatter)).Methods("DEL")
+
+
 }
 
 // Helper Functions
