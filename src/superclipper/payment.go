@@ -84,7 +84,59 @@ func getPaymentByCardIdPaymentId(formatter *render.Render) http.HandlerFunc {
 		}
 		if(!contains) {
 			formatter.JSON(writer, http.StatusNotFound, "")
-			return
+			return 
 		}
     }
+}
+
+func updatePaymentByCardIdPaymentId(formatter *render.Render) http.HandlerFunc {
+	return func(writer http.ResponseWriter, request *http.Request) {
+		//Retrieve cardId and paymentId sent as parameter
+		params := mux.Vars(request)
+		var cardId string = params["cardId"]
+		var paymentId string = params["paymentId"]
+
+		//Create an payment request object
+		var paymentRequest = Payment{}
+		_ = json.NewDecoder(request.Body).Decode(&paymentRequest)
+
+		//Start MongoDB session
+		session, error := mgo.Dial(mongodb_server)
+		if error != nil {
+			formatter.JSON(writer, http.StatusServiceUnavailable, "")
+			return
+		}
+		defer session.Close()
+		session.SetMode(mgo.Monotonic, true)
+		collection := session.DB(mongodb_database).C(mongodb_collection)
+
+		//Find document in MongoDB collection with matching CardId
+        var cardPayment = CardPayment{}
+		error = collection.Find(bson.M{"cardid" : cardId}).One(&cardPayment)
+        if error != nil {
+			formatter.JSON(writer, http.StatusNotFound, "")
+			return
+		}
+
+		//Loop through Payments and update payment with values of payment request object
+		payments := []Payment{}
+		for _, payment := range cardPayment.Payments {
+			if payment.PaymentId == paymentId {
+				payment = Payment(paymentRequest)
+				payment.PaymentId = paymentId
+			}
+			payments = append(payments,payment)
+		}
+		cardPayment.SetPayments(payments)
+
+		//Update CardPayment in MongoDB collection
+		error = collection.Update(bson.M{"cardid": cardId}, &cardPayment)
+		if error != nil {
+			formatter.JSON(writer, http.StatusNotFound, "")
+			return
+		}
+		formatter.JSON(writer, http.StatusOK, cardPayment)
+
+		//TODO: Hit Cards API '/update/{cardid}/{bal}' of type PUT to update Available Balance in Cards database
+	}
 }

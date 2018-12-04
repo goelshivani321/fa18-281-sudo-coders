@@ -24,7 +24,7 @@ func initRoutes(mx *mux.Router, formatter *render.Render) {
 	mx.HandleFunc("/ping", pingHandler(formatter)).Methods("GET")
 	mx.HandleFunc("/payments/cardId/{cardId}", getPaymentByCardId(formatter)).Methods("GET")
 	mx.HandleFunc("/payments/cardId/{cardId}/paymentId/{paymentId}", getPaymentByCardIdPaymentId(formatter)).Methods("GET")
-	// mx.HandleFunc("/payments/cardId/{cardId}/paymentId/{paymentId}", updatePaymentByCardIdPaymentId(formatter)).Methods("PUT")
+	mx.HandleFunc("/payments/cardId/{cardId}/paymentId/{paymentId}", updatePaymentByCardIdPaymentId(formatter)).Methods("PUT")
 	// mx.HandleFunc("/payments/cardId/{cardId}/payment", createPaymentByCardId(formatter)).Methods("POST")
 	// mx.HandleFunc("/payments/cardId/{cardId}/payment/{paymentId}", deletePaymentByCardIdPaymentId(formatter)).Methods("DELETE")
 }

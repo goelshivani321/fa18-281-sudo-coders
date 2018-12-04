@@ -23,10 +23,10 @@ type Payment struct {
 }
 
 
-// // SetPayment receives a pointer to CardPayment so it can modify it
-// func (cardPayment *CardPayment) SetPayments(payments []Payment) {
-//     cardPayment.Payments = payments
-// }
+// SetPayment receives a pointer to CardPayment so it can modify it
+func (cardPayment *CardPayment) SetPayments(payments []Payment) {
+    cardPayment.Payments = payments
+}
 
 // // PaymentIdGenerator generates the next PaymentMethodId
 // func PaymentIdGenerator(payments []Payment) string {
