@@ -22,6 +22,11 @@ type Payment struct {
 	CardTypeId				string `json: "cardtypeid" bson: "cardtypeid"`
 }
 
+type User struct {
+	UserName  	string `json: "username" bson: "username"`
+	Password 	string `json: "password" bson: "password"`
+}
+
 
 // SetPayment receives a pointer to CardPayment so it can modify it
 func (cardPayment *CardPayment) SetPayments(payments []Payment) {

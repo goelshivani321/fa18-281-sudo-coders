@@ -2,6 +2,7 @@ package main
 
 import (
 	// "fmt"
+	"log"
 	"net/http"
 	"encoding/json"
 	"github.com/gorilla/mux"
@@ -16,9 +17,24 @@ var mongodb_server = "localhost:27017"
 var mongodb_database = "superclipper"
 var mongodb_collection = "payment"
 
+// // API Ping Handler
+// func pingHandler(formatter *render.Render) http.HandlerFunc {
+// 	return func(writer http.ResponseWriter, req *http.Request) {
+// 		formatter.JSON(writer, http.StatusOK, struct{ Test string }{"API version 1.0 alive!"})
+// 	}
+// }
+
+
 // API Ping Handler
 func pingHandler(formatter *render.Render) http.HandlerFunc {
-	return func(writer http.ResponseWriter, req *http.Request) {
+	return func(writer http.ResponseWriter, request *http.Request) {
+
+		var userdata = User{}
+		_ = json.NewDecoder(request.Body).Decode(&userdata)
+
+		log.Println("User data")
+		log.Println(userdata)
+
 		formatter.JSON(writer, http.StatusOK, struct{ Test string }{"API version 1.0 alive!"})
 	}
 }
