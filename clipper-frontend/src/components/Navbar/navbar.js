@@ -1,28 +1,90 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
-class HomeAwayPlainNavBar extends Component {
-    
-    constructor(props){
-        super(props);
-    }
-
-    render() { 
-
-        return (
-            <div className="row w-100 add-border-signup pb-3" style={{ backgroundColor: '#FFFFFF', height: '80px', borderTopStyle: 'none', borderLeftStyle: 'none', borderRightStyle: 'none' }}>
-                <div className="col-md-1"></div>
-                <div className="col-md-2">
-                    <Link to="/"> <p>VTA Clipper System</p> </Link>
-                </div>
-                <div className="col-md-6"></div>
-                <div className="col-md-1">
-                    
-                </div>
-                <div className="col-md-1"></div>
+//create the Navbar Component
+class Navbar extends Component {
+  constructor() {
+    super();
+    this.userLogout = this.userLogout.bind(this);
+  }
+  userLogout() {
+    sessionStorage.removeItem("email");
+    this.forceUpdate();
+  }
+  render() {
+    let email = sessionStorage.getItem("email");
+    return (
+      <div>
+        <nav id="homepage-nav" className="navbar navbar-default">
+          <div className="container-fluid">
+            <div className="navbar-header">
+              <Link to="/" alt="homepage">
+                <h2>VTA Clipper Card</h2>
+              </Link>
             </div>
-          );
-    }
+            
+              <ul className="nav navbar-right">
+              <li className="nav-item">
+                <Link to="/users">
+                  <button
+                    id="login-btn"
+                    className="btn btn-primary"
+                    style={{ color: "white" }}
+                >
+                    Users
+                  </button>
+                </Link>
+             </li>
+              <li className="nav-item">
+                <Link to="/cards">
+                  <button
+                    id="login-btn"
+                    className="btn btn-primary"
+                    style={{ color: "white" }}
+                    >
+                    Cards
+                  </button>
+                </Link>
+                    </li>
+              <li className="nav-item">
+                <Link to="/rides">
+                  <button
+                    id="login-btn"
+                    className="btn btn-primary"
+                    style={{ color: "white" }}
+                    >
+                    Rides
+                  </button>
+                </Link>
+                    </li>
+              <li className="nav-item">
+                <Link to="/addpayment">
+                  <button
+                    id="login-btn"
+                    className="btn btn-primary"
+                    style={{ color: "white" }}
+                    >
+                    Payment
+                  </button>
+                </Link>
+                    </li>
+              <li className="nav-item">
+                <Link to="/login">
+                  <button
+                    id="login-btn"
+                    className="btn btn-primary"
+                    style={{ color: "white" }}
+                    >
+                    Login
+                  </button>
+                </Link>
+                    </li>
+              </ul>
+          </div>
+        </nav>
+      </div>
+    );
+  }
 }
- 
-export default HomeAwayPlainNavBar;
+
+export default Navbar;
