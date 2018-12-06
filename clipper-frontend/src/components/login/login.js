@@ -12,13 +12,14 @@ class Login extends Component {
 
 
     onFormSubmit = (e)=>{
+        e.preventDefault();
         var form = serialize(e.target, { hash: true });
         const userdata = {
             username:form.username,
             password:form.password 
         }
         
-        axios.post("http://localhost:8000/signin",data).then((response)=>{
+        axios.post("http://localhost:3000/ping",userdata).then((response)=>{
             console.log(response.status);
             console.log(response.data);
         }).catch((error)=>{
