@@ -33,6 +33,18 @@ func AllRidesEndPoint(w http.ResponseWriter, r *http.Request) {
 	respondWithJson(w, http.StatusOK, rides)
 }
 
+// GET list of rides by customer id
+func AllRidesByCustomerEndPoint(w http.ResponseWriter, r *http.Request) {
+	params := mux.Vars(r)
+	log.Println(params["cid"])
+	rides, err := dao.FindAllByCustomerId(params["cid"])
+	if err != nil {
+		respondWithError(w, http.StatusBadRequest, err.Error())
+		return
+	}
+	respondWithJson(w, http.StatusOK, rides)
+}
+
 // GET a ride by its ID
 func FindRideEndpoint(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
@@ -123,10 +135,11 @@ func main() {
 	r := mux.NewRouter()
 	r.HandleFunc("/ping", PingEndPoint).Methods("GET")
 	r.HandleFunc("/rides", AllRidesEndPoint).Methods("GET")
+	r.HandleFunc("/rides/{cid}", AllRidesByCustomerEndPoint).Methods("GET")
 	r.HandleFunc("/rides", CreateRideEndPoint).Methods("POST")
 	// r.HandleFunc("/rides", UpdateRideEndPoint).Methods("PUT")
 	r.HandleFunc("/rides", DeleteRideEndPoint).Methods("DELETE")
-	r.HandleFunc("/rides/{id}", FindRideEndpoint).Methods("GET")
+	r.HandleFunc("/ridesid/{id}", FindRideEndpoint).Methods("GET")
 	if err := http.ListenAndServe(":3000", r); err != nil {
 		log.Fatal(err)
 	}

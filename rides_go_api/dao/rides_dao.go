@@ -50,6 +50,13 @@ func (r *RidesDAO) FindAll() ([]Ride, error) {
 	return rides, err
 }
 
+// Find list of rides by CustomerID
+func (r *RidesDAO)  FindAllByCustomerId(cid string) ([]Ride, error){
+	var rides []Ride
+	err := db.C(COLLECTION).Find(bson.M{"customerID": cid}).All(&rides)
+	return rides, err
+}
+
 // Find a ride by its id
 func (r *RidesDAO) FindById(id string) (Ride, error) {
 	var ride Ride
