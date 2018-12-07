@@ -14,17 +14,8 @@ import (
 )
 
 var config = Config{}
-var dao = CardHoldersDAO{}
-
-// GET all holders
-func AllCardHoldersEndPoint(w http.ResponseWriter, r *http.Request) {
-        cardholders, err := dao.FindAll()
-        if err != nil {
-               respondWithError(w, http.StatusInternalServerError,err.Error())
-               return
-          }
-          respondWithJson(w,http.StatusOK, cardholders)
-}
+var dao = CardHoldersDAO{
+	
 // GET cardholder by ID
 func FindCardHoldersEndPoint(w http.ResponseWriter, r *http.Request) {
       params := mux.Vars(r)
