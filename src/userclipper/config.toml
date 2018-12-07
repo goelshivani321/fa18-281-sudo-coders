@@ -1,2 +1,2 @@
-server="localhost"
-database="cardholders_db"
+server="mongodb"
+database="clipper"
