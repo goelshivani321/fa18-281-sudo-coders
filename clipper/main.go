@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"log"
 	"net/http"
-	"os"
+
 
 	"gopkg.in/mgo.v2/bson"
 
@@ -103,15 +103,16 @@ func respondWithJson(w http.ResponseWriter, code int, payload interface{}) {
 
 // Parse the configuration file 'config.toml', and establish a connection to DB
 func init() {
-	//config.Read()
+	config.Read()
 	//config.Server = "mongodb"
 	//config.Database = "ridesDB"
 
-	config.Server = os.Getenv("MONGO_SERVER")
-	config.Database = os.Getenv("MONGO_DB")
-
+	//config.Server = os.Getenv("MONGO_SERVER")
+	//config.Database = os.Getenv("MONGO_DB")
+	//config.MongoURI = os.Getenv("MONGO_URI")
 	dao.Server = config.Server
 	dao.Database = config.Database
+	dao.MongoURI = config.MongoURI
 	//dao.Server = "mongodb"
 	//dao.Database = "ridesDB"
 	dao.Connect()

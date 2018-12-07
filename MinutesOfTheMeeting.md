@@ -104,3 +104,23 @@ Action Items: Build a data service for respective micro-services (2 hours)
 * <b>Any roadblocks faced by team?</b>
     * Sanjay : code is giving errors, team reviewed the code and suggested amends
     * Vaishali : trouble with github upload, Nachiket will help with it.
+
+## Meeting 9 December 6, 2018
+* <b>What did team complete in past sprint?</b>
+    * Nachiket : worked on goapi
+    * Sanjay : worked on goapi
+    * Vaishali : worked on sharding
+    * Shivani : worked on sharding 
+ 
+
+* <b>What will the team do in next sprint?</b>
+    * Vaishali - will look up react
+    * Sanjay - will look up react
+    * Nachiket - working on setting up mongodb cluster to integrate with backend
+    * Shivani - working on setting up mongodb cluster to integrate with backend
+
+* <b>Any roadblocks faced by team?</b>
+
+    * After team discussion, we have moved to to react for front end and middleware
+    
+

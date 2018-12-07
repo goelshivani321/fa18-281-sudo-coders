@@ -23,8 +23,8 @@
 |------------------|---------------|
 | Containorization | Docker        | 
 |        Backend          |    Golang           |
-|           Middleware       |          Express Node App     | 
-| Frontend | Handlebars, Bootstrap|
+|           Middleware       |         React     | 
+| Frontend | React|
 |Micro-service API Platform|Kong|
-|Database| MongoDB Cluster|
+|Database| MongoDB, Riak|
 |Cloud| Amazon EC2|

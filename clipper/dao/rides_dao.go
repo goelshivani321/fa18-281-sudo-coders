@@ -1,6 +1,7 @@
 package dao
 
 import (
+
 	"log"
 
 	. "clipper/models"
@@ -11,6 +12,7 @@ import (
 type RidesDAO struct {
 	Server   string
 	Database string
+	MongoURI string
 }
 
 var db *mgo.Database
@@ -21,11 +23,24 @@ const (
 
 // Establish a connection to database
 func (r *RidesDAO) Connect() {
-	session, err := mgo.Dial(r.Server)
+	//var mongoURI = "mongodb://username:password@prefix1.mongodb.net,prefix2.mongodb.net,prefix3.mongodb.net/dbName?replicaSet=replName&authSource=admin"
+
+	dialInfo, err := mgo.ParseURL(r.MongoURI)
+
+	//Below part is similar to above.
+	//tlsConfig := &tls.Config{}
+	//dialInfo.DialServer = func(addr *mgo.ServerAddr) (net.Conn, error) {
+	//	conn, err := tls.Dial("tcp", addr.String(), tlsConfig)
+	//	return conn, err
+	//}
+	session, err := mgo.DialWithInfo(dialInfo)
+
+	//session, err := mgo.Dial(r.Server)
 	if err != nil {
 		log.Fatal(err)
 	}
-	db = session.DB(r.Database)
+	db = session.DB(dialInfo.Database)
+	//db = session.DB(r.Database)
 }
 
 // Find list of rides

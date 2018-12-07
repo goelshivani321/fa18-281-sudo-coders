@@ -9,6 +9,7 @@ import (
 type Config struct {
 	Server   string
 	Database string
+	MongoURI string
 }
 
 // Read and parse the configuration file
