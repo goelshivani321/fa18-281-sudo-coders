@@ -19,9 +19,9 @@ var dao = CardHoldersDAO{
 // GET cardholder by ID
 func FindCardHoldersEndPoint(w http.ResponseWriter, r *http.Request) {
       params := mux.Vars(r)
-      cardholder, err := dao.FindById(params["id"])
+      cardholder, err := dao.FindById(params["emailid"])
        if err != nil {
-          respondWithError(w, http.StatusBadRequest,"Invalid cardholder ID")
+          respondWithError(w, http.StatusBadRequest,"CardHolder not present")
            return
         }
         respondWithJson(w, http.StatusOK, cardholder)
@@ -33,7 +33,7 @@ func CreateCardHoldersEndPoint(w http.ResponseWriter, r *http.Request){
               var cardholder CardHolder
               if err := json.NewDecoder(r.Body).Decode(&cardholder);
               err != nil {
-                respondWithError(w, http.StatusBadRequest, "Invalid request payload")
+                respondWithError(w, http.StatusBadRequest, "CardHolder cannot be created")
                 return
               }
               cardholder.ID = bson.NewObjectId()
@@ -54,22 +54,6 @@ func UpdateCardHoldersEndPoint(w http.ResponseWriter, r *http.Request){
           return
         }
         respondWithJson(w, http.StatusOK, map[string]string{"result":"Done"})
-}
-//DELETE a current cardholder
-func DeleteCardHoldersEndPoint(w http.ResponseWriter, r *http.Request){
-        defer r.Body.Close()
-        var cardholder CardHolder
-        if err := json.NewDecoder(r.Body).Decode(&cardholder);
-        err != nil {
-          respondWithError(w, http.StatusBadRequest, "Invalid request payload")
-          return
-        }
-        if err := dao.Delete(cardholder);
-        err != nil {
-          respondWithError(w, http.StatusInternalServerError, err.Error())
-          return
-        }
-        respondWithJson(w, http.StatusOK, map[string]string{"result":"Succeeded"})
 }
 
 func respondWithError(w http.ResponseWriter, code int, msg string) {
