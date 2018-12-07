@@ -94,11 +94,9 @@ func init() {
 
 func main() {
         r := mux.NewRouter()
-        r.HandleFunc("/cardholders", AllCardHoldersEndPoint).Methods("GET")
-        r.HandleFunc("/cardholders/{id}",FindCardHoldersEndPoint ).Methods("GET")
+        r.HandleFunc("/cardholders/{emailid}",FindCardHoldersEndPoint ).Methods("GET")
         r.HandleFunc("/cardholders",CreateCardHoldersEndPoint).Methods("POST")
-        r.HandleFunc("/cardholders",UpdateCardHoldersEndPoint).Methods("PUT")
-        r.HandleFunc("/cardholders",DeleteCardHoldersEndPoint).Methods("DELETE")
+	r.HandleFunc("/cardholders",UpdateCardHoldersEndPoint).Methods("PUT")
         if err := http.ListenAndServe(":3000", r);
         err != nil{
           log.Fatal(err)
