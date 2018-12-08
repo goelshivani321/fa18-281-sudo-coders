@@ -5,13 +5,11 @@ import (
 	"log"
 
 	. "clipper/models"
-	mgo "gopkg.in/mgo.v2"
+	"gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
 )
 
 type RidesDAO struct {
-	Server   string
-	Database string
 	MongoURI string
 }
 
@@ -25,8 +23,10 @@ const (
 func (r *RidesDAO) Connect() {
 	//var mongoURI = "mongodb://username:password@prefix1.mongodb.net,prefix2.mongodb.net,prefix3.mongodb.net/dbName?replicaSet=replName&authSource=admin"
 
+	log.Println("In DAO URI:" + r.MongoURI)
 	dialInfo, err := mgo.ParseURL(r.MongoURI)
 
+	log.Println(dialInfo.Database)
 	//Below part is similar to above.
 	//tlsConfig := &tls.Config{}
 	//dialInfo.DialServer = func(addr *mgo.ServerAddr) (net.Conn, error) {
@@ -34,12 +34,14 @@ func (r *RidesDAO) Connect() {
 	//	return conn, err
 	//}
 	session, err := mgo.DialWithInfo(dialInfo)
-
+	log.Println("In DAO Session:", session)
 	//session, err := mgo.Dial(r.Server)
+
 	if err != nil {
 		log.Fatal(err)
 	}
 	db = session.DB(dialInfo.Database)
+	log.Println("In DAO Database:", dialInfo.Database)
 	//db = session.DB(r.Database)
 }
 
@@ -75,9 +77,3 @@ func (r *RidesDAO) Delete(ride Ride) error {
 	err := db.C(COLLECTION).Remove(&ride)
 	return err
 }
-
-// Update an existing movie
-// func (m *RidesDAO) Update(ride Ride) error {
-// 	err := db.C(COLLECTION).UpdateId(ride.ID, &ride)
-// 	return err
-// }

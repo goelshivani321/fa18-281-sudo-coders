@@ -10,4 +10,5 @@ type Ride struct {
 	StartTime     string        `bson:"startTime" json:"startTime"`
 	StartLocation string        `bson:"startLocation" json:"startLocation"`
 	RideType      string        `bson:"rideType" json:"rideType"`
+	LiveStatus    string        `bson:"liveStatus" json:"liveStatus"`
 }

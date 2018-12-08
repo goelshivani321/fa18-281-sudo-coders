@@ -1,4 +1,6 @@
-server="mongo4"
-database="ridesDB"
 mongouri="mongodb://localhost/ridesDB"
 #mongouri="mongodb://admin:cmpe281@mongo1,mongo2,mongo3,mongo4,mongo5/ridesDB?replicaSet=cmpe281&authSource=admin"
+rabbitmq_server = "localhost"
+rabbitmq_port = "5672"
+rabbitmq_user = "guest"
+rabbitmq_pass = "guest"
