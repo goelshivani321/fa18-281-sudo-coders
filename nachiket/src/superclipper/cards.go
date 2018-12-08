@@ -1,0 +1,222 @@
+
+package main
+
+import (
+	"fmt"
+	"log"
+	"net/http"
+
+	"github.com/gorilla/mux"
+	"github.com/unrolled/render"
+	//"github.com/satori/go.uuid"
+	"gopkg.in/mgo.v2"
+    "gopkg.in/mgo.v2/bson"
+)
+
+// MongoDB Config
+ 
+var mongodb_server = os.Getenv("MONGO")
+var mongodb_database = os.Getenv("DATABASE")
+var mongodb_collection = os.Getenv("COLLECTION")
+
+
+
+
+
+func ping(formatter *render.Render) http.HandlerFunc {
+	return func(w http.ResponseWriter, req *http.Request) {
+		formatter.JSON(w, http.StatusOK, struct{ Test string }{"testing"})
+	}
+}
+
+
+func read(formatter *render.Render) http.HandlerFunc {
+	return func(w http.ResponseWriter, req *http.Request) {
+		session, err := mgo.Dial(mongodb_server)
+        if err != nil {
+                panic(err)
+        }
+        defer session.Close()
+        session.SetMode(mgo.Monotonic, true)
+        c := session.DB(mongodb_database).C(mongodb_collection)
+        var result bson.M
+        err = c.Find(bson.M{"Name" : "nachiket"}).One(&result)
+        if err != nil {
+                log.Fatal(err)
+        }
+        fmt.Println("Data from server is :", result )
+		formatter.JSON(w, http.StatusOK, result)
+	}
+}
+
+// API Update Gumball Inventory
+func update(formatter *render.Render) http.HandlerFunc {
+	return func(w http.ResponseWriter, req *http.Request) {
+
+		fmt.Println("inside update")
+		params := mux.Vars(req)
+		//var uuid string = params["name"]
+		var cardid string = params["cardid"]
+		var topupbal string = params["bal"]
+
+		session, err := mgo.Dial(mongodb_server)
+        if err != nil {
+                panic(err)
+        }
+        defer session.Close()
+        session.SetMode(mgo.Monotonic, true)
+        c := session.DB(mongodb_database).C(mongodb_collection)
+        var result bson.M
+        err = c.Find(bson.M{"id" : cardid}).One(&result)
+        if err != nil {
+                log.Fatal(err)
+        }
+        fmt.Println("Data from bal is :", result["bal"] )
+        stringoldbal := result["bal"].(string)
+        ioldbal, err := strconv.Atoi(stringoldbal)
+    	if err != nil {
+         //handle error
+
+    	}
+    	inttopup := 0
+    	inttopup,err = strconv.Atoi(topupbal)
+    	newbal := 0
+    	newbal = inttopup+ioldbal
+    	stringnewbal := strconv.Itoa(newbal)
+        query := bson.M{"id" : cardid}
+       
+        change := bson.M{"$set": bson.M{ "bal" : stringnewbal}}
+        err = c.Update(query, change)
+        if err != nil {
+                log.Fatal(err)
+        }
+       	var newresult bson.M
+        err = c.Find(bson.M{"id" : cardid}).One(&newresult)
+        if err != nil {
+                log.Fatal(err)
+        }        
+        fmt.Println("my new result", newresult )
+		formatter.JSON(w, http.StatusOK, newresult)
+	}
+}
+
+
+
+func createcard(formatter *render.Render) http.HandlerFunc {
+	return func(w http.ResponseWriter, req *http.Request) {
+
+
+		fmt.Println("inside create func")
+		params := mux.Vars(req)
+		//var uuid string = params["name"]
+		var tid string = params["ids"]
+<<<<<<< c7b677d51cc4d655d6937ac70dbc9c22065fe367
+		//ids,err := strconv.Atoi(tid)
+
+
+        
+
+		var mybalance string = params["mybal"]
+		var myexp string = params["myexp"]
+		//var email string = params["email"]
+=======
+		ids,err := strconv.Atoi(tid)
+
+		if err != nil {
+        // handle error
+        }
+        ids=ids+1
+
+		var name string = params["name"]
+		var surname string = params["surname"]
+		var email string = params["email"]
+>>>>>>> changes for struct in golang
+		
+		session, err := mgo.Dial(mongodb_server)
+        if err != nil {
+                panic(err)
+        }
+        defer session.Close()
+        session.SetMode(mgo.Monotonic, true)
+        c := session.DB(mongodb_database).C(mongodb_collection)
+
+<<<<<<< c7b677d51cc4d655d6937ac70dbc9c22065fe367
+        err = c.Insert(&Cards{Id: tid, Bal: mybalance, Expiry:myexp})
+=======
+        err = c.Insert(&Cards{Name: name, Surname: surname, Email:email})
+>>>>>>> changes for struct in golang
+
+		if err != nil {
+			panic(err)
+		}
+
+	}
+}
+
+
+
+
+<<<<<<< c7b677d51cc4d655d6937ac70dbc9c22065fe367
+func readbyid(formatter *render.Render) http.HandlerFunc {
+=======
+func readbyname(formatter *render.Render) http.HandlerFunc {
+>>>>>>> changes for struct in golang
+	return func(w http.ResponseWriter, req *http.Request) {
+		fmt.Println("inside read")
+		params := mux.Vars(req)
+		//var uuid string = params["name"]
+		var sid string = params["cardid"]
+
+
+		session, err := mgo.Dial(mongodb_server)
+        if err != nil {
+                panic(err)
+        }
+        defer session.Close()
+        session.SetMode(mgo.Monotonic, true)
+        c := session.DB(mongodb_database).C(mongodb_collection)
+        var result bson.M
+        err = c.Find(bson.M{"id" : sid}).One(&result)
+        if err != nil {
+                log.Fatal(err)
+        }
+        fmt.Println("Data from server is :", result )
+		formatter.JSON(w, http.StatusOK, result)
+
+
+
+	}
+}
+
+
+
+
+
+func delbyid(formatter *render.Render) http.HandlerFunc {
+	return func(w http.ResponseWriter, req *http.Request) {
+		fmt.Println("inside del")
+		params := mux.Vars(req)
+		//var uuid string = params["name"]
+		var sid string = params["cardid"]
+
+
+		session, err := mgo.Dial(mongodb_server)
+        if err != nil {
+                panic(err)
+        }
+        defer session.Close()
+        session.SetMode(mgo.Monotonic, true)
+        c := session.DB(mongodb_database).C(mongodb_collection)
+        var result bson.M
+        err = c.Remove(bson.M{"id" : sid})
+        if err != nil {
+                log.Fatal(err)
+        }
+        
+		formatter.JSON(w, http.StatusOK, result)
+
+
+	}
+}
+
+
