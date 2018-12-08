@@ -14,9 +14,11 @@ import (
 )
 
 // MongoDB Config
-var mongodb_server = "mongodb"
-var mongodb_database = "cards"
-var mongodb_collection = "names"
+ 
+var mongodb_server = os.Getenv("MONGO")
+var mongodb_database = os.Getenv("DATABASE")
+var mongodb_collection = os.Getenv("COLLECTION")
+
 
 
 
