@@ -29,3 +29,11 @@
 |Database| MongoDB, Riak|
 |Cloud| Amazon EC2|
 
+## Ownership Stack
+
+| Task         | Technology Used | 
+|------------------|---------------|
+| Shivani | [Rides Module](https://github.com/nguyensjsu/fa18-281-sudo-coders/tree/master/shivani)       | 
+|        Nachiket         |             |
+|          Vaishali     |            | 
+| Sanjay | |
