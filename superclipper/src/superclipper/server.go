@@ -21,7 +21,7 @@ import (
 
 
 // MongoDB Config
-var mongodb_server = ""
+var mongodb_server = "mongodb://admin:cmpe281@10.0.1.130,10.0.1.210,10.0.1.124,10.0.1.241,10.0.1.77"
 var mongodb_database = "superclipper"
 // var mongodb_payment_collection = "payment"
 // var mongodb_cards_collection = "cards"
