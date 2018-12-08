@@ -1,0 +1,102 @@
+{
+	"info": {
+		"_postman_id": "a367b062-7630-4a38-b4fc-801db0c4860b",
+		"name": "Rides Rest API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create Ride",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"customerID\" : \"1001\",\n\t\"startTime\" : \"2018-11-20 10:35\",\n\t\"startLocation\" : \"Tasman Drive\",\n\t\"rideType\" : \"Light Rail\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/rides",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"rides"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Rides",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:3000/movies",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"movies"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Ride By ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:3000/movies/5bd50a0d16970cb3d992d9a1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"movies",
+						"5bd50a0d16970cb3d992d9a1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Ride",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"id\" : \"5bd50a0d16970cb3d992d9a1\",\n\t\"name\" : \"A star is born (2018)\",\n\t\"description\" : \"Lady Gaga and Brad Cooper\",\n\t\"cover_image\" : \"https://m.media-amazon.com/images/M/MV5BMjE3MDQ0MTA3M15BMl5BanBnXkFtZTgwMDMwNDY2NTM@._V1_SY1000_CR0,0,674,1000_AL_.jpg\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/movies",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"movies"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
