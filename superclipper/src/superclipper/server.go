@@ -17,6 +17,7 @@ import (
 	//"github.com/satori/go.uuid"
 	"gopkg.in/mgo.v2"
     "gopkg.in/mgo.v2/bson"
+		"github.com/rs/cors"
 )
 
 
@@ -39,9 +40,15 @@ func NewServer() *negroni.Negroni {
 	formatter := render.New(render.Options{
 		IndentJSON: true,
 	})
+	corsObj := cors.New(cors.Options{
+			AllowedOrigins: []string{"*"},
+			AllowedMethods: []string{"POST", "GET", "OPTIONS", "PUT", "DELETE"},
+			AllowedHeaders: []string{"Accept", "content-type", "Content-Length", "Accept-Encoding","X-Requested-With", "X-CSRF-Token", "Authorization"},
+	})
 	n := negroni.Classic()
 	mx := mux.NewRouter()
 	initRoutes(mx, formatter)
+		n.Use(corsObj)
 	n.UseHandler(mx)
 	return n
 }
@@ -55,7 +62,7 @@ func initRoutes(mx *mux.Router, formatter *render.Render) {
 	mx.HandleFunc("/users/{userId}", updateUsersByUserId(formatter)).Methods("PUT")
 
 	mx.HandleFunc("/users", createUsers(formatter)).Methods("POST")
-
+		// mx.HandleFunc("/signup/{userId}", fetchPassword(formatter)).Methods("GET")
 
 	// mx.HandleFunc("/payment/{paymentId}", deletePaymentHandler(formatter)).Methods("DELETE")
 
@@ -121,6 +128,7 @@ func updateUsersByUserId(formatter *render.Render) http.HandlerFunc {
             if err != nil {
                     log.Fatal(err)
             }
+    fmt.Println(user)
 		formatter.JSON(w, http.StatusOK, user)
 	}
 }
@@ -141,10 +149,47 @@ func createUsers(formatter *render.Render) http.HandlerFunc {
         if err != nil {
                 panic(err)
         }
+				formatter.JSON(w, http.StatusOK, "user created");
 	}
 }
 
 
+//Fetch password from users where userid=""
+// func fetchPassword(formatter *render.Render) http.HandlerFunc{
+//     return func(w http.ResponseWriter, req *http.Request) {
+//
+// 			params := mux.Vars(req)
+// 		var userId string = params["userId"]
+//
+// 		var user Users
+// 		_ = json.NewDecoder(req.Body).Decode(&user)
+// 		session, err := mgo.Dial(mongodb_server)
+// 		if err != nil {
+// 						panic(err)
+// 		}
+//
+//     defer session.Close()
+// 		session.SetMode(mgo.Monotonic, true)
+// 		c := session.DB(mongodb_database).C(mongodb_users_collection)
+//     // db=session.DB(mongodb_database)
+//
+//     // c := db.C(mongodb_users_collection)
+//
+//     e := c.Find(bson.M{"userid":userId}).One(&user)
+//
+//    if  e != nil {
+//
+//    	// user already exists in database
+//
+//     // return user, e
+// 		// fmt.Println("User already exists, cannot create")
+// 		formatter.JSON(w, http.StatusBadRequest, "User already exists, cannot create")
+//   }
+//
+//    // formatter.JSON(w, http.StatusOK, &user)
+// formatter.JSON(w, http.StatusOK, "User logged in")
+//    }
+// }
 
 // func deletePaymentHandler(formatter *render.Render) http.HandlerFunc {
 // 	return func(w http.ResponseWriter, req *http.Request) {
