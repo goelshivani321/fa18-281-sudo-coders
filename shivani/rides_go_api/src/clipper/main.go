@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"github.com/rs/cors"
 	"log"
 	"net/http"
 	"os"
@@ -186,7 +187,15 @@ func main() {
 	r.HandleFunc("/rides", CreateRideEndPoint).Methods("POST")
 	r.HandleFunc("/rides", DeleteRideEndPoint).Methods("DELETE")
 	r.HandleFunc("/ridesid/{id}", FindRideEndpoint).Methods("GET")
-	if err := http.ListenAndServe(":3000", r); err != nil {
+
+	c := cors.New(cors.Options{
+		AllowedOrigins: []string{"*"},
+		AllowCredentials: true,
+		// Enable Debugging for testing, consider disabling in production
+		Debug: true,
+	})
+
+	if err := http.ListenAndServe(":3000", c.Handler(r)); err != nil {
 		log.Fatal(err)
 	}
 }

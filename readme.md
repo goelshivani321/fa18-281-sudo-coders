@@ -28,3 +28,4 @@
 |Micro-service API Platform|Kong|
 |Database| MongoDB, Riak|
 |Cloud| Amazon EC2|
+
