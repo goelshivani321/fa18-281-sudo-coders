@@ -1,0 +1,250 @@
+.card-container {
+  position: relative;
+  width: 120%;
+  margin-left:200px;
+  margin-top: 30px;
+
+}
+.carousel-container{
+  width: 935px;
+  margin-left: 120px;
+  margin-top: -500px;
+  position: absolute;
+}
+.logo {
+  position:relative;
+  top:0px;
+  margin-left: 100px;
+  float: left;
+  margin-top: 0px;
+  height: 190px;
+  width: 250px;
+
+}
+.para-description {
+  position: relative;
+  margin-top: 20px;
+  margin-left: 420px;
+  width: 300px;
+  font-size: 18px;
+  font-style: italic;
+  font-family: sans-serif;
+  text-decoration: none;
+}
+
+.vl {
+    border-left: 2px solid #D3D3D3;
+    margin-top: 150px;
+    height: 18px;
+    padding: 2px;
+    margin-left:10px;
+}
+
+.booking-confirm{
+  font-family: sans-serif;
+   font-size: 17px;
+    margin-top: 10px;
+    margin-left: 200px;
+    font-weight: 800;
+}
+.info{
+  font-family: sans-serif;
+   font-size: 10px;
+    margin-left: 1000px;
+    font-weight: 300;
+}
+.h4.bold-heading-1{
+
+font-family: Georgia, serif;
+  margin-left: 100px;
+   font-size: 10px;
+   position: relative;
+    font-weight: 600;
+
+}
+.bold-heading-2{
+  margin-left: 10px;
+  font-family: sans-serif;
+   font-size: 15px;
+   position: relative;
+    margin-top: 150px;
+    font-weight: 800;
+}
+.bold-heading-3{
+  margin-left: 10px;
+  font-family: sans-serif;
+   font-size: 15px;
+   position: relative;
+    margin-top: 150px;
+    font-weight: 800;
+
+}
+.bold-heading-4{
+  margin-left: 10px;
+  font-family: sans-serif;
+   font-size: 15px;
+   position: relative;
+    margin-top: 150px;
+    font-weight: 800;
+}
+.card-search-bar{
+  margin-top: 10px;
+  margin-left: 50px;
+  height: 20px;
+}
+
+.d-block{
+  margin-top: 50px;
+  width: 100px;
+  height: 400px;
+}
+.para-data {
+  position: absolute;
+  width:200px;
+  margin-top:-400px;
+  margin-left: 1040px;
+}
+.static-border{
+
+    margin-top: -350px;
+    height:340px;
+    width: 400px;
+    margin-left:1040px;
+    padding-top: 0px;
+}
+.header-bold {
+  color: green;
+}
+
+.txt-field-small-date{
+  position: relative;
+    margin-left:0px;
+    height:20px;
+    width: 160px;
+    font-size:17px;
+   border-radius: 5px;
+   box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0);
+   padding: 2px;
+   padding-left: 2px;
+   margin-top: 0px;
+   font-family:Serif;
+   font-style: 12px;
+   text-align: left;
+}
+.txt-field-small-date1{
+  position: relative;
+    margin-left:-140px;
+    height:20px;
+    width: 160px;
+    font-size:17px;
+   border-radius: 5px;
+   box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0);
+   padding: 2px;
+   padding-left: 2px;
+   margin-top: 0px;
+   font-family:Serif;
+   font-style: 12px;
+   text-align: left;
+}
+
+.btn-class-card {
+  position: relative;
+  background: #4286f4 none repeat scroll 0 0;
+  border-color: #4286f4;
+  color: #ffffff;
+  font-size: 17px;
+  width: 170px;
+  height: 40px;
+  margin-left: 90px;
+  margin-top: -15px;
+  border-radius: 25px;
+}
+.desc-property{
+  margin-top: 10px;
+  margin-left: 150px;
+}
+.glyphicon{
+  margin-left: 150px;
+  width:40px;
+  font-size: 40px;
+}
+.confirm-heading{
+  margin-left: 100px;
+  width:200px;
+}
+.hori-line{
+  width:10px;
+  margin-left: 10px;
+}
+
+.desc-headline{
+  margin-left: 0px;
+  width:100px;
+  font-size: 18px;
+}
+.desc-property1{
+  position: relative;
+  margin-top: 10px;
+  margin-left: 0px;
+}
+.desc-property2{
+  margin-top: 15px;
+  margin-left: 0px;
+  font-size: 14px;
+}
+.desc-property3{
+  margin-top: 20px;
+  margin-left: 0px;
+  margin-right: 200px;
+  font-size: 14px;
+}
+.amenities-desc{
+  margin-left: 100px;
+  width: 1000px;
+}
+tr.row-color: nth-child(even){
+  background-color: #f2f2f2;
+}
+.succes-conatiner{
+  height:200px;
+  width:700px;
+  margin-bottom: 10px;
+  position: absolute;
+  margin-top: 150px;
+  margin-right: 300px;
+  margin-left: 200px;
+  border: 1px solid #D3D3D3;
+  border-radius: 5px;
+  background-color: #F5F5F5;
+  box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0);
+}
+.row-success{
+  padding:10px;
+
+}
+.return-success1{
+  margin-left: 200px;
+ margin-top: 500px;
+ position: absolute;
+
+}
+.tile-container{
+  position: absolute;
+  margin-top: 100px;
+  margin-left: 10px;
+  width:1900px;
+}
+.propertydetail-container{
+  position: absolute;
+  margin-top: 600px;
+}
+.a.linkfont{
+  font-family: Arial, Helvetica, sans-serif;
+}
+.card-data{
+  margin-left: 10px;
+  width: 600px;
+}
+.div.carddetails{
+  width:1300px;
+}

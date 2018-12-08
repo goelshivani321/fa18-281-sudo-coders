@@ -12,13 +12,14 @@ class Login extends Component {
 
 
     onFormSubmit = (e)=>{
+        e.preventDefault();
         var form = serialize(e.target, { hash: true });
         const userdata = {
             username:form.username,
             password:form.password 
         }
         
-        axios.post("http://localhost:8000/signin",data).then((response)=>{
+        axios.post("http://localhost:3000/ping",userdata).then((response)=>{
             console.log(response.status);
             console.log(response.data);
         }).catch((error)=>{
@@ -52,26 +53,6 @@ class Login extends Component {
                         <Link type="submit" to="/signup" className="btn btn-primary btn-block" style={{color:'white',height:'40px',fontSize:'22px'}}>Sign Up</Link> 
                     </div>
                     </form>
-                    <div className="mt-3">
-                        <div className="seperator-left"><hr/></div>
-                        <div className="seperator-right" ><hr/></div>
-                        <em className="ml-3 mt-3">or</em>
-                    </div>
-                    
-                    <div className="text-center mt-3">
-                    <button className="loginBtn loginBtn--facebook" style={{width:'90%',textAlign:'center',height:'40px'}}> Login with Facebook </button>
-                    </div>
-        
-                    <div className="text-center mt-3">
-                    <button className="loginBtn loginBtn--google" style={{width:'90%',textAlign:'center',backgroundColor:'#E4E4E4',color:'#777777',height:'40px'}}> Login with Google</button>
-                    </div>
-                    <br/>
-                    <br/>
-
-                    <div className="text-center">
-                    <p style={{fontSize:'12px'}}>We dont post any thing without your permission</p>
-                    </div>
-                    <br />
                 </div>
             </div>
         </div>

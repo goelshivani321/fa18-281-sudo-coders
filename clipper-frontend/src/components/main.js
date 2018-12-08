@@ -3,6 +3,8 @@ import {Switch,Route} from 'react-router-dom';
 
 //Components
 import Login from './login/login.js'; 
+import Navbar from "./Navbar/navbar"
+import AddPayment from './AddPayment/index.jsx';
 //import Search from './search/Search.js';
 //import Signup from './signup/signup.js';
 
@@ -10,13 +12,13 @@ import Login from './login/login.js';
 class Main extends Component {
     render(){
         return(
-                        <Switch>
+          <div>
                 {/*Render Different Component based on Route*/}
                 {/*<Route exact path="/checklist" render={()=>(<Checklist />) } />*/}
-                <Route exact path="/" component={Login}/>
-                <Route exact path="/login" render={Login} />
-                
-            </Switch>
+                <Route  path="/" component={Navbar}/>
+                <Route exact path="/login" component={Login} />
+                <Route exact path="/addpayment" component={AddPayment} />
+          </div>
         
         )
     }
