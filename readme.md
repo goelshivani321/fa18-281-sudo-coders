@@ -35,5 +35,5 @@
 |------------------|---------------|
 | Shivani | [Rides Module](https://github.com/nguyensjsu/fa18-281-sudo-coders/tree/master/shivani)       | 
 |        Nachiket         |             |
-| Vaishali|[User-module]     |            | 
+| Vaishali|[User-module]| https://github.com/nguyensjsu/fa18-281-sudo-coders/tree/User-module/superclipper           | 
 | Sanjay | |
