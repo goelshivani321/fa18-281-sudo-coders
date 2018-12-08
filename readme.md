@@ -34,6 +34,6 @@
 | Task         | Technology Used | 
 |------------------|---------------|
 | Shivani | [Rides Module](https://github.com/nguyensjsu/fa18-281-sudo-coders/tree/master/shivani)       | 
-|        Nachiket         |             |
+|        Nachiket         |     Cards-module        |
 | Vaishali|[User-module](https://github.com/nguyensjsu/fa18-281-sudo-coders/tree/User-module/superclipper)           | 
 | Sanjay |payment-module |
