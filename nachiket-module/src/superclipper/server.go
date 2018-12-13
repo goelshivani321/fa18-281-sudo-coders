@@ -18,9 +18,11 @@ func NewServer() *negroni.Negroni {
         AllowedOrigins: []string{"*"},
         AllowedMethods: []string{"POST", "GET", "OPTIONS", "PUT", "DELETE"},
         AllowedHeaders: []string{"Accept", "content-type", "Content-Length", "Accept-Encoding", "X-CSRF-Token", "Authorization", "X-Requested-With"},
+	})	
 	n := negroni.Classic()
 	mx := mux.NewRouter()
 	initRoutes(mx, formatter)
+	n.Use(corsObj)	
 	n.UseHandler(mx)
 	return n
 }
